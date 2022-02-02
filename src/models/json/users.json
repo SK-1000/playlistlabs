@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "firstName": "Sheila",
+      "lastName": "Kirwan",
+      "email": "sheilafleming81@gmail.com",
+      "password": "hello",
+      "_id": "b73b2a63-af95-4c6a-bdde-2de83d518107"
+    }
+  ]
+}
