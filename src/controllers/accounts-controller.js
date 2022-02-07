@@ -1,4 +1,4 @@
-import { UserSpec } from "../models/joi-schemas.js";
+import { UserSpec, LoginSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 
@@ -36,8 +36,16 @@ export const accountsController = {
       return h.view("login-view", { title: "Login to Playlist" });
     },
   },
+ 
   login: {
     auth: false,
+    validate: {
+      payload: LoginSpec,
+      options: {abortEarly: false},
+      failAction: function (request, h, error) {
+        return h.view("login-view", { title: "Login error", errors: error.details }).takeover().code(400);
+      },
+    },
     handler: async function (request, h) {
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
@@ -48,6 +56,8 @@ export const accountsController = {
       return h.redirect("/dashboard");
     },
   },
+
+
   logout: {
     auth: false,
     handler: function (request, h) {

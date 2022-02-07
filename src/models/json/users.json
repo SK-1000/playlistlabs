@@ -1,11 +1,25 @@
 {
   "users": [
     {
-      "firstName": "Sheila",
-      "lastName": "Kirwan",
-      "email": "sheilafleming81@gmail.com",
-      "password": "hello",
-      "_id": "b73b2a63-af95-4c6a-bdde-2de83d518107"
+      "firstName": "Homer",
+      "lastName": "Simpson",
+      "email": "homer@simpson.com",
+      "password": "secret",
+      "_id": "ce6b0aad-fb61-4caa-b0d2-df4d939c793b"
+    },
+    {
+      "firstName": "Marge",
+      "lastName": "Simpson",
+      "email": "marge@simpson.com",
+      "password": "secret",
+      "_id": "a52998cd-aa98-4c31-ae89-0f3814aa1103"
+    },
+    {
+      "firstName": "Bart",
+      "lastName": "Simpson",
+      "email": "bart@simpson.com",
+      "password": "secret",
+      "_id": "3da90773-5b67-445d-aaed-a9e3e3fd9d82"
     }
   ]
 }

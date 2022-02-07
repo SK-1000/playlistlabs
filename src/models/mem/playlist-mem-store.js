@@ -15,8 +15,11 @@ export const playlistMemStore = {
   
   async getPlaylistById(id) {
     const list = playlists.find((playlist) => playlist._id === id);
-    list.tracks = await trackMemStore.getTracksByPlaylistId(list._id);
-    return list;
+    if (list) {
+      list.tracks = await trackMemStore.getTracksByPlaylistId(list._id);
+      return list;
+    }
+    return null;
   },
 
   async addPlaylist(playlist) {
@@ -28,7 +31,7 @@ export const playlistMemStore = {
 
   async deletePlaylistById(id) {
     const index = playlists.findIndex((playlist) => playlist._id === id);
-    playlists.splice(index, 1);
+    if (index !== -1) playlists.splice(index, 1);
   },
 
   async deleteAllPlaylists() {

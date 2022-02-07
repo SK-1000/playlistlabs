@@ -1,3 +1,16 @@
 {
-    "playlists": []
-  }
+  "playlists": [
+    {
+      "title": "Gym Music",
+      "_id": "55d44338-767a-4945-bf0b-b4c1b9644fb0"
+    },
+    {
+      "title": "Chill Music",
+      "_id": "c23b90a7-1a0e-480a-8287-e68255e31dc0"
+    },
+    {
+      "title": "OutOut Music",
+      "_id": "40cd1704-3d42-4c7b-8e4d-fab3c99a26d6"
+    }
+  ]
+}
