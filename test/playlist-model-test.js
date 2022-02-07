@@ -1,11 +1,12 @@
 import { assert } from "chai";
 import { db } from "../src/models/db.js";
 import { study, testPlaylists } from "./fixtures.js";
+import { assertSubset } from "./test-utils.js";
 
 suite("Playlists API tests", () => {
 
   setup(async () => {
-    db.init();
+    db.init("mongo");
     await db.playlistStore.deleteAllPlaylists();
     for (let i = 0; i < testPlaylists.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
@@ -15,7 +16,7 @@ suite("Playlists API tests", () => {
 
   test("create a playlist", async () => {
     const newPlaylist = await db.playlistStore.addPlaylist(study);
-    assert.equal(newPlaylist, study);
+    assertSubset(study, newPlaylist);
   });
 
   test("delete all playlists", async () => {
@@ -29,7 +30,7 @@ suite("Playlists API tests", () => {
   test("get a playlist - success", async () => {
     const playlist = await db.playlistStore.addPlaylist(study);
     const returnedPlaylist1 = await db.playlistStore.getPlaylistById(playlist._id);
-    assert.equal(study, playlist);
+    assertSubset(study, playlist);
   });
 
   test("delete One Playist - success", async () => {

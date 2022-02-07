@@ -1,21 +1,22 @@
 import { assert } from "chai";
 import { db } from "../src/models/db.js";
 import { maggie, testUsers } from "./fixtures.js";
+import { assertSubset } from "./test-utils.js";
 
-suite("User API tests", () => {
+suite("User Model tests", () => {
 
   setup(async () => {
-    db.init();
+    db.init("mongo");
     await db.userStore.deleteAll();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      await db.userStore.addUser(testUsers[i]);
+      testUsers[i] = await db.userStore.addUser(testUsers[i]);
     }
   });
 
   test("create a user", async () => {
     const newUser = await db.userStore.addUser(maggie);
-    assert.equal(newUser, maggie);
+    assertSubset(maggie, newUser);
   });
 
   test("delete all users", async () => {
@@ -54,23 +55,3 @@ suite("User API tests", () => {
     assert.equal(testUsers.length, allUsers.length);
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
