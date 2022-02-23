@@ -1,9 +1,9 @@
 import { assert } from "chai";
-import { db } from "../src/models/db.js";
-import { study, testPlaylists } from "./fixtures.js";
-import { assertSubset } from "./test-utils.js";
+import { db } from "../../src/models/db.js";
+import { mozart, testPlaylists } from "../fixtures.js";
+import { assertSubset } from "../test-utils.js";
 
-suite("Playlists API tests", () => {
+suite("Playlists Model tests", () => {
 
   setup(async () => {
     db.init("mongo");
@@ -15,8 +15,8 @@ suite("Playlists API tests", () => {
   });
 
   test("create a playlist", async () => {
-    const newPlaylist = await db.playlistStore.addPlaylist(study);
-    assertSubset(study, newPlaylist);
+    const newPlaylist = await db.playlistStore.addPlaylist(mozart);
+    assertSubset( mozart, newPlaylist);
   });
 
   test("delete all playlists", async () => {
@@ -28,9 +28,9 @@ suite("Playlists API tests", () => {
   });
 
   test("get a playlist - success", async () => {
-    const playlist = await db.playlistStore.addPlaylist(study);
+    const playlist = await db.playlistStore.addPlaylist(mozart);
     const returnedPlaylist1 = await db.playlistStore.getPlaylistById(playlist._id);
-    assertSubset(study, playlist);
+    assertSubset(mozart, playlist);
   });
 
   test("delete One Playist - success", async () => {

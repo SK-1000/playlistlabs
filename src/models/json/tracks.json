@@ -1,11 +1,3 @@
 {
-  "tracks": [
-    {
-      "title": "dsdf",
-      "artist": "dsfs",
-      "duration": 1,
-      "_id": "74c2c71b-e4f3-429d-b2e5-ff8d4ecb03ab",
-      "playlistid": "a785e14d-260b-40ab-899e-7c8f7ae2a283"
-    }
-  ]
+  "tracks": []
 }
