@@ -1,15 +1,21 @@
 import Vision from "@hapi/vision";
 import Hapi from "@hapi/hapi";
 import Cookie from "@hapi/cookie";
+import Inert from "@hapi/inert";
 import path from "path";
 import Joi from "joi";
+import HapiSwagger from "hapi-swagger";
 import { fileURLToPath } from "url";
 import Handlebars from "handlebars";
+import jwt from "hapi-auth-jwt2";
 import dotenv from "dotenv";
+import { validate } from "./api/jwt-utils.js";
 import { webRoutes } from "./web-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { apiRoutes } from "./api-routes.js";
+
+
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,6 +27,13 @@ if (result.error) {
   console.log(result.error.message);
   process.exit(1)
 }
+const swaggerOptions = {
+  info: {
+    title: "Playtime API",
+    version: "0.1",
+  },
+};
+
 
 async function init() {
   const server = Hapi.server({
@@ -28,8 +41,18 @@ async function init() {
     host: "localhost",
   });
 
-  await server.register(Vision);
+  // await server.register(Vision);
   await server.register(Cookie);
+  await server.register(jwt);
+  // await server.register(Inert);
+  await server.register([
+    Inert,
+    Vision,
+    {
+      plugin: HapiSwagger,
+      options: swaggerOptions,
+    },
+  ]);
   server.validator(Joi);
 
 
@@ -55,6 +78,12 @@ async function init() {
     validateFunc: accountsController.validate,
   });
   server.auth.default("session");
+
+  server.auth.strategy("jwt", "jwt", {
+    key: process.env.cookie_password,
+    validate: validate,
+    verifyOptions: { algorithms: ["HS256"] }
+  });
 
   db.init("mongo");
   server.route(webRoutes);
